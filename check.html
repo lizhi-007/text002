@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>学生注册表单</title>
+	</head>
+	<style>
+		body {
+						margin: 0;
+						padding: 20px;
+						min-height: 100vh;
+						box-sizing: border-box;
+						font-family: "Microsoft Yahei", Arial, sans-serif;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+		
+		
+
+					.form-container h2 {
+						text-align: center;
+						color: #1e6fff;
+						margin-top: 0;
+						margin-bottom: 30px;
+						font-size: 22px;
+					}
+					.form-container form > div {
+						margin-bottom: 22px;
+					}
+		
+					.form-container label {
+						display: block;
+						margin-bottom: 8px;
+						color: #1e6fff;
+						font-size: 15px;
+						font-weight: 500;
+					}
+		
+					
+					.form-container input[type="text"],
+					.form-container input[type="password"] {
+						width: 100%;
+						padding: 12px 15px;
+						border: 1px solid #c9e0ff;
+						border-radius: 6px;
+						box-sizing: border-box;
+						font-size: 14px;
+						transition: all 0.3s ease;
+					}
+		
+        			.form-container input[type="submit"] {
+        				width: 100%;
+        				padding: 13px;
+        				background-color: #1e6fff;
+        				color: #fff;
+        				border: none;
+        				border-radius: 6px;
+        				font-size: 16px;
+        				font-weight: 500;
+        				cursor: pointer;
+        				transition: background-color 0.3s ease;
+        			}
+        
+        			
+	</style>
+	<body>
+		<div class="form-container">
+			<h2>学生注册表单</h2>
+			<form onsubmit="return form_data()">
+				<div>
+					<label for="username">姓名 *</label>
+					<br>
+					<input id="username" name="username" type="text" placeholder="请输入您的姓名" />
+				</div>
+				<div>
+					<label for="phone">手机号 *</label>
+					<br />
+					<input id="phone" name="phone" type="text" placeholder="请输入11位手机号" />
+				</div>
+				<div>
+					<label for="email">邮箱</label>
+					<br />
+					<input id="email" name="email" placeholder="可选，如：student@school.com" />
+				</div>
+				<div>
+					<label for="code">密码 *</label>
+					<br />
+					<input id="code" type="password" placeholder="至少6位，包含字母和数字" />
+				</div>
+				<div>
+					<label for="oncode">确认密码 *</label>
+					<br />
+					<input id="oncode" type="password" placeholder="请再次输入密码" />
+				</div>
+				
+				<input type="submit" value="注册" /> 
+			</form>
+		</div>
+		
+	</body>
+	<script>
+		function form_data(){
+			// 验证姓名（非空）
+			let usernameInput = document.getElementById("username");
+			let username = usernameInput.value.trim();
+			if (username === "") {
+				alert("姓名不能为空");
+				return false;
+			}
+
+			let phoneInput = document.getElementById("phone");
+			let phone = phoneInput.value.trim();
+			let phoneReg = /^[0-9]{11}$/;
+			if (!phoneReg.test(phone)) {
+				alert("请输入11位有效的手机号");
+				return false;
+			}
+
+			let emailInput = document.getElementById("email");
+			let email = emailInput.value.trim();
+			if (email !== "") {
+				let emailReg = /^[A-Za-z0-9_]+@[A-Za-z0-9-]+\.(com|cn|gov\.cn|org)$/;
+				if (!emailReg.test(email)) {
+					alert("邮箱格式错误，请输入如 student@school.com 的格式");
+					return false; 
+				}
+			}
+
+			let codeInput = document.getElementById("code");
+			let code = codeInput.value;
+			let codeReg = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+			if (!codeReg.test(code)) {
+				alert("密码格式不对，需至少6位且包含字母和数字");
+				return false;
+			}
+
+			let oncodeInput = document.getElementById("oncode");
+			let oncode = oncodeInput.value;
+			if (oncode !== code) {
+				alert("确认密码与密码不一致，请重新输入");
+				return false;
+			}
+
+			alert("所有字段格式正确，即将提交！");
+			return true;
+		}
+	</script>
+</html>
